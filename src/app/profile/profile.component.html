@@ -1,0 +1,29 @@
+<div *ngIf="user; else errorTemplate">
+  <h2>User Profile</h2>
+  <p><strong>Username:</strong> {{ user.username }}</p>
+  <p><strong>Email:</strong> {{ user.email }}</p>
+  <p><strong>Full Name:</strong> {{ user.name }}</p>
+
+  <div class="audio-controls">
+    <button (click)="startRecording()" [disabled]="isRecording">Start Recording</button>
+    <button (click)="stopRecording()" [disabled]="!isRecording">Stop Recording</button>
+    <div *ngIf="audioUrl">
+      <h3>Recorded Audio</h3>
+      <audio [src]="audioUrl" controls></audio>
+      <div *ngIf="formatedText">
+        <h3>Transcription and Response</h3>
+        <p>{{ formatedText }}</p>
+      </div>
+
+      <div *ngIf="resultAudioUrl">
+        <h3>Response Audio</h3>
+        <audio [src]="resultAudioUrl" controls></audio>
+      </div>
+    </div>
+    <button (click)="sendAudio()" [disabled]="!audioBlob">Send Audio</button>
+  </div>
+</div>
+
+<ng-template #errorTemplate>
+  <p class="error-message">{{ errorMessage }}</p>
+</ng-template>
